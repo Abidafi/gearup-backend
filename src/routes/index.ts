@@ -6,6 +6,7 @@ import paymentRoutes from './payment.routes';
 import adminRoutes from './admin.routes';
 import categoryRoutes from './category.routes';
 import reviewRoutes from './review.routes';
+import providerRoutes from './provider.routes';
 
 const rootRouter = Router();
 
@@ -16,5 +17,6 @@ rootRouter.use('/payments', paymentRoutes);
 rootRouter.use('/admin', adminRoutes);
 rootRouter.use('/categories', categoryRoutes);
 rootRouter.use('/reviews', reviewRoutes);
+rootRouter.use('/provider', providerRoutes);
 
 export default rootRouter;
