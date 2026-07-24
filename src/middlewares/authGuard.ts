@@ -36,7 +36,11 @@ export const authGuard = (...roles: Role[]) => {
         return next(new AppError(403, 'You do not possess permission to access this resource'));
       }
 
-      req.user = decoded;
+      req.user = {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+      };
       next();
     } catch (error) {
       next(new AppError(401, 'Invalid session or token expired'));
