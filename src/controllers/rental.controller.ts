@@ -71,7 +71,7 @@ export const getMyOrders = async (
   try {
     const orders = await prisma.rentalOrder.findMany({
       where: { customerId: req.user!.id },
-      include: { gearItem: true, payment: true },
+      include: { gearItem: true, payments: true },
     });
 
     res.status(200).json({ success: true, data: orders });
@@ -97,7 +97,7 @@ export const getProviderOrders = async (
         customer: {
           select: { id: true, name: true, email: true },
         },
-        payment: true,
+        payments: true,
       },
     });
 
