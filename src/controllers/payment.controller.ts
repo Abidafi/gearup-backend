@@ -52,3 +52,24 @@ export const getPaymentHistory = async (req: AuthenticatedRequest, res: Response
     res.status(200).json({ success: true, data: history });
   } catch (error) { next(error); }
 };
+
+export const getPaymentDetails = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const payment = await prisma.payment.findUnique({
+      where: { id },
+      include: {
+        rentalOrder: {
+          include: {
+            gearItem: true,
+          },
+        },
+      },
+    });
+
+    if (!payment) return next(new AppError(404, 'Payment record not found'));
+
+    res.status(200).json({ success: true, data: payment });
+  } catch (error) { next(error); }
+};
