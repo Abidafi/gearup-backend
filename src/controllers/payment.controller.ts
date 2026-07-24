@@ -20,10 +20,7 @@ export const createPaymentIntent = async (req: AuthenticatedRequest, res: Respon
       metadata: { rentalOrderId },
       payment_method: 'pm_card_visa',
       confirm: true,
-      automatic_payment_methods: {
-        enabled: true,
-        allow_redirects: 'never',
-      },
+      return_url: 'https://example.com',
     });
 
     res.status(200).json({ success: true, data: { clientSecret: intent.client_secret, transactionId: intent.id } });
