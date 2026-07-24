@@ -25,3 +25,15 @@ export const adminGetALlGear = async (req: Request, res: Response, next: NextFun
     res.status(200).json({ success: true, data: gear });
   } catch (error) { next(error); }
 };
+
+export const adminGetAllRentals = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const rentals = await prisma.rentalOrder.findMany({
+      include: {
+        customer: { select: { name: true, email: true } },
+        gearItem: { select: { title: true, pricePerDay: true } }
+      }
+    });
+    res.status(200).json({ success: true, data: rentals });
+  } catch (error) { next(error); }
+};
