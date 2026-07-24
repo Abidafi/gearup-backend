@@ -32,6 +32,9 @@ export const authGuard = (...roles: Role[]) => {
         return next(new AppError(403, 'Your account has been suspended by an administrator'));
       }
 
+      console.log('Required Roles:', roles);
+      console.log('User Role in DB:', user.role);
+
       if (roles.length && !roles.includes(user.role)) {
         return next(new AppError(403, 'You do not possess permission to access this resource'));
       }
